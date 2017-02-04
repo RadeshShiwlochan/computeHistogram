@@ -19,22 +19,24 @@ public class Main  {
 			numCols = readFile.nextInt();
 			minVal = readFile.nextInt();
 			maxVal = readFile.nextInt();
+			histogram = new int[maxVal + 1];
 			
 			while(readFile.hasNextInt()) {
 				num = readFile.nextInt();
-				System.out.print(num + " ");
-				writeToFile.print("" + String.format("%2d", num) + "\t");
+				computeHistogram(num);
+				//System.out.print(num + " ");
+				writeToFile.print(String.format("%2d", num) + "\t");
 				count++;
 				if(count == numCols) {
-					System.out.println();
+					//System.out.println();
 					count = 0;
-				}
-					
+				}	
 			}
 			writeToFile.flush();
 		} catch(IOException exc) {
 			System.out.println("Error occurred reading in file " + exc);
 		}
+		printHistogram();
 	}
 
 	public static void main(String[] args) {
@@ -42,7 +44,6 @@ public class Main  {
 			System.out.println("Needs an input file");
 			System.exit(-1);
 		}
-		
 		try {
 		String inputFile = args[0];	
 		String outputFile = args[1];
@@ -51,6 +52,23 @@ public class Main  {
 		} catch (Exception ioe) {
 			System.out.println(ioe);
 		}
-		
+	}
+	
+	public void computeHistogram(int numFromFile) {
+		histogram[numFromFile]++;
+	}
+	
+	public void printHistogram() {
+		int numVal = 0;
+		for(int i = 0; i < histogram.length; i++) {
+			if(histogram[i] >= 60)
+				numVal = 60;
+			else 
+				numVal = histogram[i];
+			System.out.print( "( " + i + " ) : " + histogram[i] + " ");
+			for(int j = 0; j < numVal; j++)
+				System.out.print("+");
+			System.out.println();
+		}
 	}
 }
