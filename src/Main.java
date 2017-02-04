@@ -11,7 +11,7 @@ public class Main  {
 	private int maxVal;
 	
 	public Main(String inputFile, String outputFile)  {
-		int num, count = 0;
+		int num;
 		try {
 			Scanner readFile = new Scanner(new File(inputFile));
 			PrintWriter writeToFile = new PrintWriter(new File(outputFile));
@@ -24,19 +24,14 @@ public class Main  {
 			while(readFile.hasNextInt()) {
 				num = readFile.nextInt();
 				computeHistogram(num);
-				//System.out.print(num + " ");
-				writeToFile.print(String.format("%2d", num) + "\t");
-				count++;
-				if(count == numCols) {
-					//System.out.println();
-					count = 0;
-				}	
-			}
-			writeToFile.flush();
+			}	
+			printHistogram(writeToFile);
+			readFile.close();
+			readFile.close();
 		} catch(IOException exc) {
 			System.out.println("Error occurred reading in file " + exc);
 		}
-		printHistogram();
+		
 	}
 
 	public static void main(String[] args) {
@@ -58,17 +53,18 @@ public class Main  {
 		histogram[numFromFile]++;
 	}
 	
-	public void printHistogram() {
+	public void printHistogram(PrintWriter writeToFile) {
 		int numVal = 0;
 		for(int i = 0; i < histogram.length; i++) {
 			if(histogram[i] >= 60)
 				numVal = 60;
 			else 
 				numVal = histogram[i];
-			System.out.print( "( " + i + " ) : " + histogram[i] + " ");
+			writeToFile.print( "( " + i + " ) : " + histogram[i] + " ");
 			for(int j = 0; j < numVal; j++)
-				System.out.print("+");
-			System.out.println();
+				writeToFile.print("+");
+			writeToFile.println();
 		}
+		writeToFile.flush();
 	}
 }
