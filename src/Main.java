@@ -21,12 +21,15 @@ public class Main  {
 			maxVal = readFile.nextInt();
 			histogram = new int[maxVal + 1];
 			
+			//initialize the histogram array to zeroes
+			for(int i = 0; i < histogram.length;i++)
+				histogram[i] = 0;
+			
 			while(readFile.hasNextInt()) {
 				num = readFile.nextInt();
 				computeHistogram(num);
 			}	
 			printHistogram(writeToFile);
-			readFile.close();
 			readFile.close();
 		} catch(IOException exc) {
 			System.out.println("Error occurred reading in file " + exc);
@@ -66,5 +69,6 @@ public class Main  {
 			writeToFile.println();
 		}
 		writeToFile.flush();
+		writeToFile.close();
 	}
 }
