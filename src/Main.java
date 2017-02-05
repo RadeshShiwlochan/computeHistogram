@@ -22,8 +22,11 @@ public class Main  {
 			histogram = new int[maxVal + 1];
 			
 			//initialize the histogram array to zeroes
-			for(int i = 0; i < histogram.length;i++)
+			for(int i = 0; i < maxVal; i++)
 				histogram[i] = 0;
+			
+			//take this line out.
+			System.out.println(numRows + " " + numCols + " " + minVal + " " + maxVal);
 			
 			while(readFile.hasNextInt()) {
 				num = readFile.nextInt();
@@ -45,8 +48,7 @@ public class Main  {
 		try {
 		String inputFile = args[0];	
 		String outputFile = args[1];
-		
-			Main mainObj = new Main(inputFile, outputFile);
+		Main mainObj = new Main(inputFile, outputFile);
 		} catch (Exception ioe) {
 			System.out.println(ioe);
 		}
@@ -58,7 +60,7 @@ public class Main  {
 	
 	public void printHistogram(PrintWriter writeToFile) {
 		int numVal = 0;
-		for(int i = 0; i < histogram.length; i++) {
+		for(int i = 0; i <= maxVal; i++) {
 			if(histogram[i] >= 60)
 				numVal = 60;
 			else 
